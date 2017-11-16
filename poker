@@ -1,0 +1,76 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+ 
+int random(int a[]) //1~52的随机排列  扑克发牌顺序 
+{
+	 int i,j,flag,num;
+	 srand((unsigned)time(NULL));
+	 for(i = 0; i < 52; ++i) 
+	 {
+		  num = rand()%52 + 1;
+		  flag = 1;
+		  for(j = 0; j < i; ++j) 
+		  {
+			   if(num == a[j]) 
+			   {
+				    flag = 0;;
+				    break;
+			   }
+		  }
+		  if(flag) a[i] = num;
+		  else --i;
+	 }
+	 return 0;
+}
+
+int duiying(int x,int a[],int poker[])//将牌分给a、b、c、d四人 
+{
+	int m;
+	for(m=0;m<13;m++){
+		a[m]=poker[x];
+		x++;
+	}
+	return 0;
+}
+
+int shuchu(int a[])//将数字换成相对应的牌 
+{
+	int x=0;
+	for(;x<13;x++){
+		if(a[x]<13){
+			printf("黑桃S%d ",a[x]);
+		}
+		else if(a[x]>12&&a[x]<26){
+			printf("红桃H%d ",a[x]-12);
+		}
+		else if(a[x]>25&&a[x]<39){
+			printf("方块D%d ",a[x]-25);
+		}
+		else if(a[x]>38){
+			printf("梅花C%d ",a[x]-38);
+		}
+	}
+	printf("\n");
+	return 0; 
+}
+
+int main()
+{
+	int a[13],b[13],c[13],d[13],poker[52];//a、b、c、d四个人 
+	random(poker);
+	duiying(0,a,poker);
+	duiying(13,b,poker);
+	duiying(26,c,poker);
+	duiying(39,d,poker);
+	printf("a的牌是：");
+	shuchu(a);
+	printf("b的牌是：");
+	shuchu(b);
+	printf("c的牌是：");
+	shuchu(c);
+	printf("d的牌是：");
+	shuchu(d);
+	getchar();
+	return 0;
+}
